@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Component } from 'preact/compat';
+import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 import { 
 	Button,
