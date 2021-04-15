@@ -1,0 +1,109 @@
+{
+	"cypher":
+	[
+		{
+			"letter": "a",
+			"value": 1
+		},
+		{
+			"letter": "b",
+			"value": 20
+		},
+		{
+			"letter": "c",
+			"value": 13
+		},
+		{
+			"letter": "d",
+			"value": 6
+		},
+		{
+			"letter": "e",
+			"value": 25
+		},
+		{
+			"letter": "f",
+			"value": 18
+		},
+		{
+			"letter": "g",
+			"value": 11
+		},
+		{
+			"letter": "h",
+			"value": 4
+		},
+		{
+			"letter": "i",
+			"value": 23
+		},
+		{
+			"letter": "j",
+			"value": 16
+		},
+		{
+			"letter": "k",
+			"value": 9
+		},
+		{
+			"letter": "l",
+			"value": 2
+		},
+		{
+			"letter": "m",
+			"value": 21
+		},
+		{
+			"letter": "n",
+			"value": 14
+		},
+		{
+			"letter": "o",
+			"value": 7
+		},
+		{
+			"letter": "p",
+			"value": 26
+		},
+		{
+			"letter": "q",
+			"value": 19
+		},
+		{
+			"letter": "r",
+			"value": 12
+		},
+		{
+			"letter": "s",
+			"value": 5
+		},
+		{
+			"letter": "t",
+			"value": 24
+		},
+		{
+			"letter": "u",
+			"value": 17
+		},
+		{
+			"letter": "v",
+			"value": 10
+		},
+		{
+			"letter": "w",
+			"value": 3
+		},
+		{
+			"letter": "x",
+			"value": 22
+		},
+		{
+			"letter": "y",
+			"value": 15
+		},
+		{
+			"letter": "z",
+			"value": 8
+		}
+	]
+}

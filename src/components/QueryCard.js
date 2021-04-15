@@ -1,0 +1,164 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { Component } from 'react';
+import { css, jsx } from '@emotion/react';
+import { 
+	Button,
+	Card,
+	Container,
+	Grid,
+	TextField
+} from '@material-ui/core';
+import debounce from 'lodash.debounce';
+import ResultsPane from './ResultsPane';
+import EyeOfProvidence from '../svg/EyeOfProvidence';
+import queryEncode from '../utilities/queryEncode';
+import liberTextBreakdown from '../utilities/liberTextBreakdown';
+
+class QueryCard extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			buttonDisable: true,
+			cypherVal: null,
+			matches: null,
+			processedString: null,
+			queryString: '',
+			queryVal: null,
+			showResults: false
+		};
+
+		this.buttonDisable = this.buttonDisable.bind(this);
+		this.changeHandler = this.changeHandler.bind(this);
+		this.clickHandler = this.clickHandler.bind(this);
+		this.debounceThis = debounce(this.debounceThis.bind(this), 500);
+		this.resultsDisplayCondition = this.resultsDisplayCondition.bind(this);
+	}
+
+	// Enable the button once there's a string to submit in the field
+	buttonDisable = () => {
+		if (this.state.queryString !== '') {
+			this.setState({buttonDisable: false});
+		}
+		return false;
+	}
+
+	// Functions to be run when the query field value changes
+	changeHandler = (event) => {
+		this.setState({queryString: event.target.value});
+		this.debounceThis();
+	}
+
+	// Functions to be run when the submit button is clicked
+	clickHandler = () => {
+		this.setState({showResults: true});
+		this.setState({matches: liberTextBreakdown(this.state.cypherVal)});
+		return false;
+	}
+
+	// Delay these a bit so we're not running them on every keystroke
+	debounceThis = () => {
+		const encodedQuery = queryEncode(this.state.queryString);
+		this.setState({processedString: encodedQuery.processedString});
+		this.setState({queryVal: encodedQuery.queryVal});
+		this.setState({cypherVal: encodedQuery.cypherVal});
+		this.buttonDisable();
+	}
+
+	resultsDisplayCondition = () => {
+		let output = css`display: none;`;
+		if (this.state.showResults) {
+			output = css`display: block;`;
+		}
+		return output;
+	}
+
+	render() {
+
+		const ShowResults = () => {
+			if (this.state.showResults) {
+				return (
+					<Grid
+						item
+						xs={12}
+					>
+						<ResultsPane 
+							cypherValData={this.state.cypherVal} 
+							matchData={this.state.matches}
+							processedStringData={this.state.processedString}
+						/>
+					</Grid>
+				)
+			}
+	
+			return false;
+		}
+
+		return(
+			<Container>
+				<Card 
+					css={css`
+						padding: 2rem;
+					`}
+					variant="outlined"
+				>
+					<Grid container spacing={3}>
+						<Grid item xs={12}>
+							<Grid container spacing={3}>
+								<Grid item xs={2}>
+									<EyeOfProvidence />
+								</Grid>
+								<Grid item xs={10}>
+									<div>
+										<h1 css={css`margin: 0;`}>New Aeon English Qabalah</h1>
+										<h2 css={css`margin: 0;`}>The Secret Cypher of the UFOnauts</h2>
+									</div>
+								</Grid>
+							</Grid>
+						</Grid>
+						<Grid item xs={12}>
+							<form 
+								autoComplete="off"
+								noValidate
+							>
+								<Grid container spacing={3}>
+									<Grid item xs={9}>
+										<TextField
+											css={css`
+												width: 100%;
+											`}
+											id="outlined-required"
+											label="Your query"
+											onChange={this.changeHandler}
+											required
+											value={this.state.queryString}
+											variant="outlined"
+										/>
+									</Grid>
+									<Grid item xs={3}>
+										<Button 
+											css={css`
+												height: 100%;
+												width: 100%;
+											`}
+											disabled={this.state.buttonDisable}
+											onClick={this.clickHandler}
+											variant="contained"
+										>
+											Search
+										</Button>
+									</Grid>
+								</Grid>
+							</form>
+						</Grid>
+						
+						<ShowResults />
+					</Grid>
+				</Card>
+			</Container>
+		)
+	}
+}
+
+export default QueryCard;

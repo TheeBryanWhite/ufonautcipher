@@ -1,0 +1,82 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import { 
+	Card,
+	Container,
+	Grid,
+} from '@material-ui/core';
+
+const ResultsPane = props => {
+	return(
+		<Card>
+			<Container>
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<h2>You searched for:</h2>
+					<div 
+						css={css`
+							align-items: center;
+							display: flex;
+							justify-content: space-between;
+						`}
+					>
+						{
+							props.processedStringData.map((string, index) => (
+								<div
+									css={css`
+										flex: 1;
+										text-align: center;
+									`}
+									key={index}
+								>
+									<p
+										css={css`
+											font-weight: 800;
+											margin: 0;
+										`}
+									>
+										{props.cypherValData[index]}
+									</p>
+									<p css={css`margin-top: 0;`}>{string}</p>
+								</div>
+							))
+						}
+					</div>
+				</Grid>
+				<Grid
+					css={css`
+						text-align: left;
+					`}
+					item
+					xs={12}
+				>
+					<h2
+						css={css`
+							border-bottom: 1px solid #000000;
+						`}
+					>
+						Matches:
+					</h2>
+					<ul
+						css={css`
+							column-count: 3;
+							column-gap: 20px;
+							list-style: none;
+							padding: 0;
+						`}
+					>
+					{
+						props.matchData.map((match, index) => (
+							<li key={index}>{match}</li>
+						))
+					}
+					</ul>
+				</Grid>
+			</Grid>
+			</Container>
+		</Card>
+	)
+}
+
+export default ResultsPane;
