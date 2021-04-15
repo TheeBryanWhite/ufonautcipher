@@ -96,7 +96,7 @@ class QueryCard extends Component {
 		}
 
 		return(
-			<Container>
+			<Container css={css`margin: 1rem;`}>
 				<Card 
 					css={css`
 						padding: 2rem;
@@ -105,15 +105,51 @@ class QueryCard extends Component {
 				>
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
-							<Grid container spacing={3}>
-								<Grid item xs={2}>
-									<EyeOfProvidence />
+							<Grid
+								alignItems="center"
+								container
+								direction="row"
+								spacing={3}
+							>
+								<Grid item xs={12} md={2}>
+									<EyeOfProvidence
+										css={css`
+											width: 33vw;
+											@media (min-width: 1024px) {
+												width: auto;
+											}
+										`}
+									/>
 								</Grid>
-								<Grid item xs={10}>
-									<div>
-										<h1 css={css`margin: 0;`}>New Aeon English Qabalah</h1>
-										<h2 css={css`margin: 0;`}>The Secret Cypher of the UFOnauts</h2>
-									</div>
+								<Grid item xs={12} md={10}>
+									<h1
+										css={css`
+											font-size: 8vw;
+											margin: 0;
+											@media (min-width: 1024px) {
+												font-size: 4vw;
+											}
+											@media (min-width: 1536px) {
+												font-size: 3vw;
+											}
+										`}
+									>
+										The Secret Cypher of the UFOnauts
+									</h1>
+									<h2
+										css={css`
+											font-size: 5vw;
+											margin: 0;
+											@media (min-width: 1024px) {
+												font-size: 3vw;
+											}
+											@media (min-width: 1536px) {
+												font-size: 2.5vw;
+											}
+										`}
+									>
+										New Aeon English Qabalah
+									</h2>
 								</Grid>
 							</Grid>
 						</Grid>
@@ -123,7 +159,7 @@ class QueryCard extends Component {
 								noValidate
 							>
 								<Grid container spacing={3}>
-									<Grid item xs={9}>
+									<Grid item xs={12} sm={9}>
 										<TextField
 											css={css`
 												width: 100%;
@@ -136,7 +172,7 @@ class QueryCard extends Component {
 											variant="outlined"
 										/>
 									</Grid>
-									<Grid item xs={3}>
+									<Grid item xs={12} sm={3}>
 										<Button 
 											css={css`
 												height: 100%;

@@ -60,15 +60,30 @@ const ResultsPane = props => {
 					</h2>
 					<ul
 						css={css`
-							column-count: 3;
-							column-gap: 20px;
 							list-style: none;
 							padding: 0;
+							@media (min-width: 768px) {
+								column-count: 2;
+								column-gap: 20px;
+							}
+							@media (min-width: 1024px) {
+								column-count: 3;
+							}
 						`}
 					>
 					{
 						props.matchData.map((match, index) => (
-							<li key={index}>{match}</li>
+							<li
+								css={css`
+									display: block;
+									&:nth-of-type(even) {
+										background-color: #c9d4d8;
+									}
+								`}
+								key={index}
+							>
+								{match}
+							</li>
 						))
 					}
 					</ul>
