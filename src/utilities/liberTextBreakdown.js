@@ -3,7 +3,7 @@ import queryEncode from './queryEncode';
 const liberTextBreakdown = (queryVal) => {
 	const liberData = require('../json/liber_al.json');
 
-	// Find the cypher vzlues for every index in the Liber AL array
+	// Find the cypher values for every index in the Liber AL array
 	const addItUp = (array) => {
 		// For each index in the array...
 		const compoundVals = array.map((entry) => {
