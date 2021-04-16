@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Component, lazy } from 'react';
+import { Component, lazy, Suspense } from 'react';
 import { css, jsx } from '@emotion/react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -14,6 +14,7 @@ import queryEncode from '../utilities/queryEncode';
 import liberTextBreakdown from '../utilities/liberTextBreakdown';
 
 const ResultsPane = lazy(() => import('./ResultsPane'));
+const renderLoader = () => <p>Loading</p>;
 
 class QueryCard extends Component {
 
@@ -79,16 +80,18 @@ class QueryCard extends Component {
 		const ShowResults = () => {
 			if (this.state.showResults) {
 				return (
-					<Grid
-						item
-						xs={12}
-					>
-						<ResultsPane 
-							cypherValData={this.state.cypherVal} 
-							matchData={this.state.matches}
-							processedStringData={this.state.processedString}
-						/>
-					</Grid>
+					<Suspense fallback={renderLoader()}>
+						<Grid
+							item
+							xs={12}
+						>
+							<ResultsPane 
+								cypherValData={this.state.cypherVal} 
+								matchData={this.state.matches}
+								processedStringData={this.state.processedString}
+							/>
+						</Grid>
+					</Suspense>
 				)
 			}
 	
