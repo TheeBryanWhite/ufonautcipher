@@ -8,9 +8,9 @@ const liberTextBreakdown = (queryVal) => {
 		// For each index in the array...
 		const compoundVals = array.map((entry) => {
 			// Output a new array of the cypher values
-			return entry.cypherVal.map((vals, index) => {
+			return entry.cypherVals.map((vals, index) => {
 				// Compound their values so that each index is a total of the previous sum plus the current cypher value
-				return entry.cypherVal.slice(0, index + 1).reduce((acc, curr) => acc + curr);
+				return entry.cypherVals.slice(0, index + 1).reduce((acc, curr) => acc + curr);
 			})
 		});
 
@@ -71,7 +71,7 @@ const liberTextBreakdown = (queryVal) => {
 	const init = () => {
 		const evaluateThis = breakItDown(liberArr());
 		const quartetVals = addItUp(evaluateThis);
-		const inputObj = {'cypherVal': queryVal.join(), 'liberData': quartetVals};
+		const inputObj = {'cypherVal': queryVal, 'liberData': quartetVals};
 		const unfilteredMatches = compareInputToLiber(inputObj);
 		const simplifiedMatches = simplifyOutput(unfilteredMatches);
 		const output = filterDuplicates(simplifiedMatches);

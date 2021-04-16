@@ -40,6 +40,22 @@ const ResultsPane = props => {
 								</div>
 							))
 						}
+						<div
+							css={css`
+								flex: 1;
+								text-align: center;
+							`}
+						>
+							<p
+								css={css`
+									font-weight: 800;
+									margin: 0;
+								`}
+							>
+								Total
+							</p>
+							<p css={css`margin-top: 0;`}>{props.totalSumData}</p>
+						</div>
 					</div>
 				</Grid>
 				<Grid

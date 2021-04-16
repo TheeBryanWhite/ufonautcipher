@@ -31,6 +31,10 @@ const queryEncode = (string) => {
 		return string.split(' ');
 	}
 
+	const combinedSum = (vals) => {
+		return vals.reduce((acc, curr) => acc + curr);
+	}
+
 	const init = (string) => {
 		const strippedString = stripInvalidChars(string);
 		const trimmedString = trimThis(strippedString);
@@ -38,12 +42,14 @@ const queryEncode = (string) => {
 		const brokenOnSpaces = breakOnSpaces(stringToLower);
 		const brokenDown = breakItDown(brokenOnSpaces);
 		const cypheredString = runTheCypher(brokenDown);
-		const cypherVal = addItUp(cypheredString);
+		const cypherVals = addItUp(cypheredString);
+		const total = combinedSum(cypherVals);
 
 		return {
 			"processedString": brokenOnSpaces, 
 			"queryVal": cypheredString,
-			"cypherVal": cypherVal
+			"cypherVals": cypherVals,
+			"totalSum": [total]
 		}
 	}
 

@@ -27,7 +27,8 @@ class QueryCard extends Component {
 			processedString: null,
 			queryString: '',
 			queryVal: null,
-			showResults: false
+			showResults: false,
+			totalSum: 0
 		};
 
 		this.buttonDisable = this.buttonDisable.bind(this);
@@ -54,7 +55,8 @@ class QueryCard extends Component {
 	// Functions to be run when the submit button is clicked
 	clickHandler = () => {
 		this.setState({showResults: true});
-		this.setState({matches: liberTextBreakdown(this.state.cypherVal)});
+		this.setState({matches: liberTextBreakdown(this.state.totalSum)});
+		window.history.pushState('','',`?q=${this.state.queryString}`);
 		return false;
 	}
 
@@ -63,7 +65,8 @@ class QueryCard extends Component {
 		const encodedQuery = queryEncode(this.state.queryString);
 		this.setState({processedString: encodedQuery.processedString});
 		this.setState({queryVal: encodedQuery.queryVal});
-		this.setState({cypherVal: encodedQuery.cypherVal});
+		this.setState({cypherVal: encodedQuery.cypherVals});
+		this.setState({totalSum: encodedQuery.totalSum});
 		this.buttonDisable();
 	}
 
@@ -89,6 +92,7 @@ class QueryCard extends Component {
 								cypherValData={this.state.cypherVal} 
 								matchData={this.state.matches}
 								processedStringData={this.state.processedString}
+								totalSumData={this.state.totalSum}
 							/>
 						</Grid>
 					</Suspense>
@@ -137,7 +141,7 @@ class QueryCard extends Component {
 											}
 										`}
 									>
-										The Secret Cypher of the UFOnauts
+										The Secret Cipher of the UFOnauts
 									</h1>
 									<h2
 										css={css`
