@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import { css, jsx } from '@emotion/react';
 import QueryCard from './components/QueryCard'
 

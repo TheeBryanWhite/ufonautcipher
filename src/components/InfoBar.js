@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 const linkStyles = css`
 	color: #be171c;

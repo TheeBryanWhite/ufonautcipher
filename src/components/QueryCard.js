@@ -2,13 +2,11 @@
 /** @jsx jsx */
 import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
-import { 
-	Button,
-	Card,
-	Container,
-	Grid,
-	TextField
-} from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import debounce from 'lodash.debounce';
 import InfoBar from './InfoBar';
 import ResultsPane from './ResultsPane';
