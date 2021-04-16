@@ -10,6 +10,7 @@ import {
 	TextField
 } from '@material-ui/core';
 import debounce from 'lodash.debounce';
+import InfoBar from './InfoBar';
 import ResultsPane from './ResultsPane';
 import EyeOfProvidence from '../svg/EyeOfProvidence';
 import queryEncode from '../utilities/queryEncode';
@@ -188,7 +189,7 @@ class QueryCard extends Component {
 								</Grid>
 							</form>
 						</Grid>
-						
+						<InfoBar />
 						<ShowResults />
 					</Grid>
 				</Card>
