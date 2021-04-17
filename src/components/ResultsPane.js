@@ -70,7 +70,7 @@ const ResultsPane = props => {
 							border-bottom: 1px solid #000000;
 						`}
 					>
-						Matches:
+						Matches for {props.queryData}({props.totalSumData}):
 					</h2>
 					<ul
 						css={css`

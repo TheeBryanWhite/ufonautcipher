@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { Component, lazy, Suspense } from 'react';
 import { css, jsx } from '@emotion/react';
+import { withRouter } from "react-router";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -12,6 +13,7 @@ import InfoBar from './InfoBar';
 import EyeOfProvidence from '../svg/EyeOfProvidence';
 import queryEncode from '../utilities/queryEncode';
 import liberTextBreakdown from '../utilities/liberTextBreakdown';
+import deepLinking from '../utilities/deepLinking';
 
 const ResultsPane = lazy(() => import('./ResultsPane'));
 const renderLoader = () => <p>Loading</p>;
@@ -28,14 +30,17 @@ class QueryCard extends Component {
 			queryString: '',
 			queryVal: null,
 			showResults: false,
-			totalSum: 0
+			totalSum: 0,
 		};
+
+		this.pathname = props.location.pathname;
 
 		this.buttonDisable = this.buttonDisable.bind(this);
 		this.changeHandler = this.changeHandler.bind(this);
 		this.clickHandler = this.clickHandler.bind(this);
 		this.debounceThis = debounce(this.debounceThis.bind(this), 500);
-		this.resultsDisplayCondition = this.resultsDisplayCondition.bind(this);
+		this.deepLinkInit = this.deepLinkInit.bind(this);
+		this.encodedStateUpdate = this.encodedStateUpdate.bind(this);
 	}
 
 	// Enable the button once there's a string to submit in the field
@@ -54,32 +59,45 @@ class QueryCard extends Component {
 
 	// Functions to be run when the submit button is clicked
 	clickHandler = () => {
-		this.setState({showResults: true});
-		this.setState({matches: liberTextBreakdown(this.state.totalSum)});
-		window.history.pushState('','',`?q=${this.state.queryString}`);
-		return false;
+		this.setState({
+			matches: liberTextBreakdown(this.state.totalSum),
+			showResults: true
+		});
 	}
 
 	// Delay these a bit so we're not running them on every keystroke
 	debounceThis = () => {
 		const encodedQuery = queryEncode(this.state.queryString);
-		this.setState({processedString: encodedQuery.processedString});
-		this.setState({queryVal: encodedQuery.queryVal});
-		this.setState({cypherVal: encodedQuery.cypherVals});
-		this.setState({totalSum: encodedQuery.totalSum});
+		this.encodedStateUpdate(encodedQuery);
 		this.buttonDisable();
 	}
 
-	resultsDisplayCondition = () => {
-		let output = css`display: none;`;
-		if (this.state.showResults) {
-			output = css`display: block;`;
+	deepLinkInit = (query) => {
+		this.setState({queryString: query});
+		const encodedQuery = queryEncode(query);
+		this.encodedStateUpdate(encodedQuery);
+	}
+
+	encodedStateUpdate = (object) => {
+		const matches = liberTextBreakdown(object.totalSum);
+		this.setState({
+			cypherVal: object.cypherVals,
+			processedString: object.processedString,
+			queryVal: object.queryVal,
+			totalSum: object.totalSum,
+			matches: matches
+		});
+	}
+
+	componentDidMount() {
+		const pathName = deepLinking(this.pathname);
+		if (pathName.length > 0) {
+			this.deepLinkInit(pathName);
+			this.setState({showResults: true});
 		}
-		return output;
 	}
 
 	render() {
-
 		const ShowResults = () => {
 			if (this.state.showResults) {
 				return (
@@ -92,6 +110,7 @@ class QueryCard extends Component {
 								cypherValData={this.state.cypherVal} 
 								matchData={this.state.matches}
 								processedStringData={this.state.processedString}
+								queryData={this.state.queryString}
 								totalSumData={this.state.totalSum}
 							/>
 						</Grid>
@@ -204,4 +223,4 @@ class QueryCard extends Component {
 	}
 }
 
-export default QueryCard;
+export default withRouter(QueryCard);

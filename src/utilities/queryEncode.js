@@ -1,6 +1,5 @@
 const queryEncode = (string) => {
 	const cypherData = require('../json/cypher.json');
-
 	// Add the cypher values together
 	const addItUp = (array) => {
 		// For each word in the query string...
