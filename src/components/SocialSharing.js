@@ -16,7 +16,6 @@ import {
   import Grid from '@material-ui/core/Grid';
 
   const SocialSharing = (props) => {
-	  console.log(props);
 	  return(
 		<Grid container spacing={3}>
 			<Grid css={css`background-color: #c9d4d8;`} item xs={12}>
