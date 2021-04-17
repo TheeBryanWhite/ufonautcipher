@@ -18,7 +18,6 @@ import {
   const SocialSharing = (props) => {
 	  const query = props.sharePath.join('-');
 	  const shareUrl = `https://ufonautcipher.com/${query}`;
-	  console.log(shareUrl);
 	  return(
 		<Grid container spacing={3}>
 			<Grid css={css`background-color: #c9d4d8;`} item xs={12}>

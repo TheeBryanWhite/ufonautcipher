@@ -31,7 +31,7 @@ class QueryCard extends Component {
 			queryString: '',
 			queryVal: null,
 			showResults: false,
-			totalSum: 0,
+			totalSum: 0
 		};
 
 		this.pathname = props.location.pathname;
