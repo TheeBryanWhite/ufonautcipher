@@ -10,7 +10,7 @@ const Footer = () => {
 		<footer>
 			<Grid css={css`padding: 0 2rem;`} container spacing={3}>
 				<Grid css={css`text-align: left;`} item xs={12} sm={9}>
-					<p css={css`font-size: 1rem;`}>&copy; {theYear} // A creation of Frater Pera (<a css={css`color: #fff;`} href="http://twitter.com/thatwerewolftho" rel="noreferrer" target="_blank">@thatwerewolftho</a>) // All rights reserved</p>
+					<p css={css`font-size: 1rem;`}>&copy; {theYear} &#47;&#47; A creation of Frater Pera (<a css={css`color: #fff;`} href="http://twitter.com/thatwerewolftho" rel="noreferrer" target="_blank">@thatwerewolftho</a>) &#47;&#47; All rights reserved</p>
 				</Grid>
 				<Grid css={css`text-align: right;`} item xs={12} sm={3}>
 					<p css={css`font-size: 1rem;`}>באמצעות קסם אני נעשית שלמה</p>
