@@ -33,9 +33,7 @@ class QueryCard extends Component {
 			showResults: false,
 			totalSum: 0,
 		};
-		console.log(props);
 
-		this.location = props.location;
 		this.pathname = props.location.pathname;
 
 		this.buttonDisable = this.buttonDisable.bind(this);
@@ -114,7 +112,7 @@ class QueryCard extends Component {
 								matchData={this.state.matches}
 								processedStringData={this.state.processedString}
 								queryData={this.state.queryString}
-								sharePath={this.location}
+								sharePath={this.state.processedString}
 								totalSumData={this.state.totalSum}
 							/>
 						</Grid>
