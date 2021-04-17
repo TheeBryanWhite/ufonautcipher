@@ -4,8 +4,9 @@ import { css, jsx } from '@emotion/react';
 import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import SocialSharing from './SocialSharing';
 
-const ResultsPane = props => {
+const ResultsPane = (props) => {
 	return(
 		<Card>
 			<Container>
@@ -58,6 +59,7 @@ const ResultsPane = props => {
 						</div>
 					</div>
 				</Grid>
+				<SocialSharing sharePath={props.sharePath} />
 				<Grid
 					css={css`
 						text-align: left;

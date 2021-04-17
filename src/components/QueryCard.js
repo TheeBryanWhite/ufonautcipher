@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import debounce from 'lodash.debounce';
 import InfoBar from './InfoBar';
+import Footer from './Footer';
 import EyeOfProvidence from '../svg/EyeOfProvidence';
 import queryEncode from '../utilities/queryEncode';
 import liberTextBreakdown from '../utilities/liberTextBreakdown';
@@ -32,7 +33,9 @@ class QueryCard extends Component {
 			showResults: false,
 			totalSum: 0,
 		};
+		console.log(props);
 
+		this.location = props.location;
 		this.pathname = props.location.pathname;
 
 		this.buttonDisable = this.buttonDisable.bind(this);
@@ -111,6 +114,7 @@ class QueryCard extends Component {
 								matchData={this.state.matches}
 								processedStringData={this.state.processedString}
 								queryData={this.state.queryString}
+								sharePath={this.location}
 								totalSumData={this.state.totalSum}
 							/>
 						</Grid>
@@ -218,6 +222,7 @@ class QueryCard extends Component {
 						<ShowResults />
 					</Grid>
 				</Card>
+				<Footer />
 			</Container>
 		)
 	}
