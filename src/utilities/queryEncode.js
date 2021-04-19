@@ -1,19 +1,19 @@
 const queryEncode = (string) => {
-	const cypherData = require('../json/cypher.json');
-	// Add the cypher values together
+	const cipherData = require('../json/cipher.json');
+	// Add the cipher values together
 	const addItUp = (array) => {
 		// For each word in the query string...
-		const cypherValOutput = array.map(word => {
-			let cypherSum = 0;
+		const cipherValOutput = array.map(word => {
+			let cipherSum = 0;
 			// Loop through each letter...
 			word.forEach(letter => {
-				// Return the sum of their NAEQ cypher values
-				return cypherSum += letter.value;
+				// Return the sum of their NAEQ cipher values
+				return cipherSum += letter.value;
 			});
-			return cypherSum;
+			return cipherSum;
 		});
 
-		return cypherValOutput;
+		return cipherValOutput;
 	}
 
 	// Break each word in each array down into their individual letters
@@ -40,14 +40,14 @@ const queryEncode = (string) => {
 		const stringToLower = lowerCaseIt(trimmedString);
 		const brokenOnSpaces = breakOnSpaces(stringToLower);
 		const brokenDown = breakItDown(brokenOnSpaces);
-		const cypheredString = runTheCypher(brokenDown);
-		const cypherVals = addItUp(cypheredString);
-		const total = combinedSum(cypherVals);
+		const cipheredString = runTheCipher(brokenDown);
+		const cipherVals = addItUp(cipheredString);
+		const total = combinedSum(cipherVals);
 
 		return {
 			"processedString": brokenOnSpaces, 
-			"queryVal": cypheredString,
-			"cypherVals": cypherVals,
+			"queryVal": cipheredString,
+			"cipherVals": cipherVals,
 			"totalSum": [total]
 		}
 	}
@@ -57,25 +57,25 @@ const queryEncode = (string) => {
 		return string.toLowerCase();
 	}
 
-	// Run the string against the cypher object
-	const runTheCypher = (array) => {
+	// Run the string against the cipher object
+	const runTheCipher = (array) => {
 		// For each word in the query string...
-		const encypher = array.map(word => {
+		const encipher = array.map(word => {
 			// For each letter in this word...
 			const letterVals = word.map(letter => {
-				let cypherVal = null;
-				// Run the current letter against the cypher object
-				// Return the corresponding NAEQ cypher value for that letter
-				cypherData.cypher.forEach(cypherPair => {
-					if (letter === cypherPair.letter) {
-						cypherVal = cypherPair.value;
+				let cipherVal = null;
+				// Run the current letter against the cipher object
+				// Return the corresponding NAEQ cipher value for that letter
+				cipherData.cipher.forEach(cipherPair => {
+					if (letter === cipherPair.letter) {
+						cipherVal = cipherPair.value;
 					}
 				});
-				return {'letter': letter, 'value': cypherVal};
+				return {'letter': letter, 'value': cipherVal};
 			});
 			return letterVals;
 		});
-		return encypher;
+		return encipher;
 	}
 
 	// Only allow alphas and spaces

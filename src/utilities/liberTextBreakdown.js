@@ -3,14 +3,14 @@ import queryEncode from './queryEncode';
 const liberTextBreakdown = (queryVal) => {
 	const liberData = require('../json/liber_al.json');
 
-	// Find the cypher values for every index in the Liber AL array
+	// Find the cipher values for every index in the Liber AL array
 	const addItUp = (array) => {
 		// For each index in the array...
 		const compoundVals = array.map((entry) => {
-			// Output a new array of the cypher values
-			return entry.cypherVals.map((vals, index) => {
-				// Compound their values so that each index is a total of the previous sum plus the current cypher value
-				return entry.cypherVals.slice(0, index + 1).reduce((acc, curr) => acc + curr);
+			// Output a new array of the cipher values
+			return entry.cipherVals.map((vals, index) => {
+				// Compound their values so that each index is a total of the previous sum plus the current cipher value
+				return entry.cipherVals.slice(0, index + 1).reduce((acc, curr) => acc + curr);
 			})
 		});
 
@@ -32,10 +32,10 @@ const liberTextBreakdown = (queryVal) => {
 	const breakItDown = (array) => {
 		return array.map((string, index) => {
 			// Grab the current index and the next three words
-			const cypherThese = array.slice(index, index + 4);
+			const cipherThese = array.slice(index, index + 4);
 
-			// Convert them into a string that the cypher function can work with
-			const liberQuartets = cypherThese.join(' ');
+			// Convert them into a string that the cipher function can work with
+			const liberQuartets = cipherThese.join(' ');
 
 			// Encode that shit and kick it back!
 			return queryEncode(liberQuartets);
@@ -48,7 +48,7 @@ const liberTextBreakdown = (queryVal) => {
 		return input.liberData.map((object) => {
 			// Return words and phrases that match the input value
 			return object.val.map((val, index) => {
-				if (parseInt(input.cypherVal) === val) {
+				if (parseInt(input.cipherVal) === val) {
 					return object.phrase[index].trim();
 				} else {
 					return '';
@@ -71,7 +71,7 @@ const liberTextBreakdown = (queryVal) => {
 	const init = () => {
 		const evaluateThis = breakItDown(liberArr());
 		const quartetVals = addItUp(evaluateThis);
-		const inputObj = {'cypherVal': queryVal, 'liberData': quartetVals};
+		const inputObj = {'cipherVal': queryVal, 'liberData': quartetVals};
 		const unfilteredMatches = compareInputToLiber(inputObj);
 		const simplifiedMatches = simplifyOutput(unfilteredMatches);
 		const output = filterDuplicates(simplifiedMatches);

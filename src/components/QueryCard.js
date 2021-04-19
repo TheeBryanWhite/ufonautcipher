@@ -3,6 +3,17 @@
 import { Component, lazy, Suspense } from 'react';
 import { css, jsx } from '@emotion/react';
 import { withRouter } from "react-router";
+import { connect } from 'react-redux'
+import { 
+	setButtonState,
+	setCipherVal,
+	setMatches,
+	setQueryString,
+	setQueryVal,
+	setProcessedString,
+	setResultsPaneState,
+	setTotalSum
+} from '../redux/actions'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -23,16 +34,6 @@ class QueryCard extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			buttonDisable: true,
-			cypherVal: null,
-			matches: null,
-			processedString: null,
-			queryString: '',
-			queryVal: null,
-			showResults: false,
-			totalSum: 0
-		};
 
 		this.pathname = props.location.pathname;
 
@@ -46,61 +47,59 @@ class QueryCard extends Component {
 
 	// Enable the button once there's a string to submit in the field
 	buttonDisable = () => {
-		if (this.state.queryString !== '') {
-			this.setState({buttonDisable: false});
+		if (this.props.queryString !== '') {
+			this.props.setButtonState(false);
+		} else {
+			this.props.setButtonState(true);
 		}
 		return false;
 	}
 
 	// Functions to be run when the query field value changes
 	changeHandler = (event) => {
-		this.setState({queryString: event.target.value});
+		this.props.setQueryString(event.target.value);
 		this.debounceThis();
 	}
 
 	// Functions to be run when the submit button is clicked
 	clickHandler = () => {
-		this.setState({
-			matches: liberTextBreakdown(this.state.totalSum),
-			showResults: true
-		});
+		this.props.setMatches(liberTextBreakdown(this.props.totalSum));
+		this.props.setResultsPaneState(true);
 	}
 
 	// Delay these a bit so we're not running them on every keystroke
 	debounceThis = () => {
-		const encodedQuery = queryEncode(this.state.queryString);
+		const encodedQuery = queryEncode(this.props.queryString);
 		this.encodedStateUpdate(encodedQuery);
 		this.buttonDisable();
 	}
 
 	deepLinkInit = (query) => {
-		this.setState({queryString: query});
+		this.props.setQueryString(query);
 		const encodedQuery = queryEncode(query);
 		this.encodedStateUpdate(encodedQuery);
 	}
 
 	encodedStateUpdate = (object) => {
 		const matches = liberTextBreakdown(object.totalSum);
-		this.setState({
-			cypherVal: object.cypherVals,
-			processedString: object.processedString,
-			queryVal: object.queryVal,
-			totalSum: object.totalSum,
-			matches: matches
-		});
+		this.props.setCipherVal(object.cipherVals);
+		this.props.setMatches(matches);
+		this.props.setProcessedString(object.processedString);
+		this.props.setQueryVal(object.queryVal);
+		this.props.setTotalSum(object.totalSum);
 	}
 
 	componentDidMount() {
 		const pathName = deepLinking(this.pathname);
 		if (pathName.length > 0) {
 			this.deepLinkInit(pathName);
-			this.setState({showResults: true});
+			this.props.setResultsPaneState(true);
 		}
 	}
 
 	render() {
 		const ShowResults = () => {
-			if (this.state.showResults) {
+			if (this.props.showResults) {
 				return (
 					<Suspense fallback={renderLoader()}>
 						<Grid
@@ -108,12 +107,12 @@ class QueryCard extends Component {
 							xs={12}
 						>
 							<ResultsPane 
-								cypherValData={this.state.cypherVal} 
-								matchData={this.state.matches}
-								processedStringData={this.state.processedString}
-								queryData={this.state.queryString}
-								sharePath={this.state.processedString}
-								totalSumData={this.state.totalSum}
+								cipherValData={this.props.cipherVal} 
+								matchData={this.props.matches}
+								processedStringData={this.props.processedString}
+								queryData={this.props.queryString}
+								sharePath={this.props.processedString}
+								totalSumData={this.props.totalSum}
 							/>
 						</Grid>
 					</Suspense>
@@ -196,7 +195,7 @@ class QueryCard extends Component {
 											label="Your query"
 											onChange={this.changeHandler}
 											required
-											value={this.state.queryString}
+											value={this.props.queryString}
 											variant="outlined"
 										/>
 									</Grid>
@@ -206,7 +205,7 @@ class QueryCard extends Component {
 												height: 100%;
 												width: 100%;
 											`}
-											disabled={this.state.buttonDisable}
+											disabled={this.props.buttonDisable}
 											onClick={this.clickHandler}
 											variant="contained"
 										>
@@ -226,4 +225,27 @@ class QueryCard extends Component {
 	}
 }
 
-export default withRouter(QueryCard);
+const mapStateToProps = state => ({
+    buttonDisable: state.app.buttonDisable,
+	cipherVal: state.app.cipherVal,
+	matches: state.app.matches,
+	processedString: state.app.processedString,
+	queryString: state.app.queryString,
+	queryVal: state.app.queryVal,
+	showResults: state.app.showResults,
+	totalSum: state.app.totalSum
+})
+
+export default connect(
+	mapStateToProps, 
+	{
+		setButtonState, 
+		setCipherVal,
+		setMatches,
+		setProcessedString,
+		setQueryString,
+		setQueryVal,
+		setResultsPaneState,
+		setTotalSum
+	}
+)(withRouter(QueryCard))

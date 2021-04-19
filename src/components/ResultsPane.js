@@ -35,7 +35,7 @@ const ResultsPane = (props) => {
 											margin: 0;
 										`}
 									>
-										{props.cypherValData[index]}
+										{props.cipherValData[index]}
 									</p>
 									<p css={css`margin-top: 0;`}>{string}</p>
 								</div>
