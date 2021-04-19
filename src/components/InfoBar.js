@@ -21,7 +21,7 @@ const InfoBar = () => {
 			spacing={3}
 		>
 			<Grid item xs={6} sm={3}>
-				<p><a css={linkStyles} href="https://en.wikipedia.org/wiki/English_Qabalah#ALW_cipher_/_New_Aeon_English_Qabalah_(NAEQ)" rel="noreferrer" target="_blank">What's this all about?</a></p>
+				<p><a css={linkStyles} href="https://ko-fi.com/fraterpera" rel="noreferrer" target="_blank">Buy me a coffee</a></p>
 			</Grid>
 			<Grid item xs={6} sm={3}>
 				<p><a css={linkStyles} href="https://www.amazon.com/gp/product/171864535X/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=171864535X&linkCode=as2&tag=lastp00-20&linkId=210e6049b11198cd9851b49eb58ab6be" rel="noreferrer" target="_blank">Order Secret Cipher of the UFOnauts</a></p>
