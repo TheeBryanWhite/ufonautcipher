@@ -8,5 +8,4 @@ Powered by React.js, this is an application that automates the ALW cipher found 
 Roadmap:
 
 1. Reverse lookup, search by number
-2. Click on individual result/value to show matches for that word/value
-3. Stored queries w/ Mongo DB
+2. Stored queries w/ Mongo DB

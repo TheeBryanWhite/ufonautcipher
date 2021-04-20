@@ -62,7 +62,8 @@ class QueryCard extends Component {
 	}
 
 	// Functions to be run when the submit button is clicked
-	clickHandler = () => {
+	clickHandler = (event) => {
+		event.preventDefault();
 		this.props.setMatches(liberTextBreakdown(this.props.totalSum));
 		this.props.setResultsPaneState(true);
 	}
@@ -184,6 +185,7 @@ class QueryCard extends Component {
 							<form 
 								autoComplete="off"
 								noValidate
+								onSubmit={this.clickHandler}
 							>
 								<Grid container spacing={3}>
 									<Grid item xs={12} sm={9}>
@@ -207,6 +209,7 @@ class QueryCard extends Component {
 											`}
 											disabled={this.props.buttonDisable}
 											onClick={this.clickHandler}
+											type="submit"
 											variant="contained"
 										>
 											Search

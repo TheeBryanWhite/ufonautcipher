@@ -1,5 +1,12 @@
 import { types } from "../constants/types";
 
+export const isNumericSearch = (data) => (dispatch) => {
+	dispatch({
+		type: types.IS_NUMERIC_SEARCH,
+		payload: data,
+	})
+}
+
 export const setButtonState = (data) => (dispatch) => {
 	dispatch({
 		type: types.SET_BUTTON_STATE,
