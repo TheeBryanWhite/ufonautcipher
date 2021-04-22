@@ -1,4 +1,5 @@
-const queryEncode = (string) => {
+
+export function queryEncode(string) {
 	const cipherData = require('../json/cipher.json');
 	// Add the cipher values together
 	const addItUp = (array) => {
@@ -35,9 +36,7 @@ const queryEncode = (string) => {
 	}
 
 	const init = (string) => {
-		const strippedString = stripInvalidChars(string);
-		const trimmedString = trimThis(strippedString);
-		const stringToLower = lowerCaseIt(trimmedString);
+		const stringToLower = lowerCaseIt(string);
 		const brokenOnSpaces = breakOnSpaces(stringToLower);
 		const brokenDown = breakItDown(brokenOnSpaces);
 		const cipheredString = runTheCipher(brokenDown);
@@ -78,18 +77,6 @@ const queryEncode = (string) => {
 		return encipher;
 	}
 
-	// Only allow alphas and spaces
-	const stripInvalidChars = (string) => {
-		return string.replace(/[^A-Za-z_ ]/g, '');
-	}
-
-	// Trim the whitespace on the ends to avoid any unnecessary empty arrays in the comparison object
-	const trimThis = (string) => {
-		return string.trim();
-	}
-
 	const allThatData = init(string);
 	return allThatData;
 }
-
-export default queryEncode;

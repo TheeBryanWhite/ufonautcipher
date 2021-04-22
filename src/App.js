@@ -1,8 +1,11 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import { css, jsx } from '@emotion/react';
-import QueryCard from './components/QueryCard'
+import Header from './components/Header';
+import QueryCard from './components/QueryCard';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -13,21 +16,18 @@ const App = () => {
         text-align: center;
       `}
     >
-      <header
-        className="App-header"
+      <Container 
         css={css`
-          background-color: #282c34;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          font-size: calc(10px + 2vmin);
-          color: white;
+          margin: 1rem;
+          @media (min-width: 768px) {
+            margin: 2rem;
+          }
         `}
       >
+        <Header />
         <QueryCard />
-      </header>
+        <Footer />
+      </Container>
     </Box>
   );
 }

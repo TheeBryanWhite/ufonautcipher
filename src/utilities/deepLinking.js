@@ -1,4 +1,4 @@
-const deepLinking = (path) => {
+export function deepLinking(path) {
 	const init = () => {
 		const strippedQuery = stripInvalidChars(path);
 		return trimOutput(strippedQuery);
@@ -15,5 +15,3 @@ const deepLinking = (path) => {
 
 	return init();
 }
-
-export default deepLinking;

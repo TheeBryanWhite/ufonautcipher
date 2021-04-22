@@ -12,7 +12,13 @@ const ResultsPane = (props) => {
 			<Container>
 			<Grid container spacing={3}>
 				<Grid item xs={12}>
-					<h2>You searched for:</h2>
+					<h2
+						css={css`
+							font-size: 2rem;
+						`}
+					>
+						You searched for:
+					</h2>
 					<div 
 						css={css`
 							align-items: center;
@@ -31,13 +37,28 @@ const ResultsPane = (props) => {
 								>
 									<p
 										css={css`
+											font-size: 1.5rem;
 											font-weight: 800;
 											margin: 0;
 										`}
 									>
 										{props.cipherValData[index]}
 									</p>
-									<p css={css`margin-top: 0;`}><a css={css`color: #000;`} href={`/${string}`}>{string}</a></p>
+									<p 
+										css={css`
+											font-size: 1.5rem;
+											margin-top: 0;`
+										}
+									>
+										<a 
+											css={css`
+												color: #000;
+											`} 
+											href={`/${string}`}
+										>
+											{string}
+										</a>
+									</p>
 								</div>
 							))
 						}
@@ -49,13 +70,21 @@ const ResultsPane = (props) => {
 						>
 							<p
 								css={css`
+									font-size: 1.5rem;
 									font-weight: 800;
 									margin: 0;
 								`}
 							>
 								Total
 							</p>
-							<p css={css`margin-top: 0;`}>{props.totalSumData}</p>
+							<p
+								css={css`
+									font-size: 1.5rem;
+									margin-top: 0;
+								`}
+							>
+								{props.totalSumData}
+							</p>
 						</div>
 					</div>
 				</Grid>
@@ -76,6 +105,7 @@ const ResultsPane = (props) => {
 					</h2>
 					<ul
 						css={css`
+							font-size: 1.25rem;
 							list-style: none;
 							padding: 0;
 							@media (min-width: 768px) {
@@ -91,7 +121,9 @@ const ResultsPane = (props) => {
 						props.matchData.map((match, index) => (
 							<li
 								css={css`
-									display: block;
+									display: inline-block;
+									padding: 5px;
+									width: 100%;
 									&:nth-of-type(even) {
 										background-color: #c9d4d8;
 									}

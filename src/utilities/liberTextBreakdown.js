@@ -1,6 +1,6 @@
-import queryEncode from './queryEncode';
+import {queryEncode} from './queryEncode';
 
-const liberTextBreakdown = (queryVal) => {
+export function liberTextBreakdown(queryVal) {
 	const liberData = require('../json/liber_al.json');
 
 	// Find the cipher values for every index in the Liber AL array
@@ -97,5 +97,3 @@ const liberTextBreakdown = (queryVal) => {
 	const liberTextOutput = init();
 	return liberTextOutput;
 }
-
-export default liberTextBreakdown

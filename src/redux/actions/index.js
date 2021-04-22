@@ -1,6 +1,6 @@
 import { types } from "../constants/types";
 
-export const isNumericSearch = (data) => (dispatch) => {
+export const isNumericQuery = (data) => (dispatch) => {
 	dispatch({
 		type: types.IS_NUMERIC_SEARCH,
 		payload: data,

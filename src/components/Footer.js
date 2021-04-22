@@ -19,7 +19,13 @@ const Footer = () => {
 					xs={12} 
 					md={9}
 				>
-					<p css={css`font-size: 1rem;`}>&copy; {theYear} &#47;&#47; A creation of Frater Pera (<a css={css`color: #fff;`} href="https://twitter.com/ThatWerewolfTho" rel="noreferrer" target="_blank">@thatwerewolftho</a>) &#47;&#47; All rights reserved</p>
+					<p 
+						css={css`
+							color: #fff;
+							font-size: 1rem;
+					`}>
+						&copy; {theYear} &#47;&#47; A creation of Frater Pera (<a css={css`color: #fff;`} href="https://twitter.com/ThatWerewolfTho" rel="noreferrer" target="_blank">@thatwerewolftho</a>) &#47;&#47; All rights reserved
+					</p>
 				</Grid>
 				<Grid
 					css={css`
@@ -31,7 +37,12 @@ const Footer = () => {
 					xs={12} 
 					md={3}
 				>
-					<p css={css`font-size: 1rem;`}>באמצעות קסם אני נעשית שלמה</p>
+					<p css={css`
+						color: #fff;
+						font-size: 1rem;
+					`}>
+						באמצעות קסם אני נעשית שלמה
+					</p>
 				</Grid>
 			</Grid>
 		</footer>
