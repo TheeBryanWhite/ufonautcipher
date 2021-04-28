@@ -27,7 +27,7 @@ const InfoBar = () => {
 				<p><a css={linkStyles} href="https://www.amazon.com/gp/product/171864535X/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=171864535X&linkCode=as2&tag=lastp00-20&linkId=210e6049b11198cd9851b49eb58ab6be" rel="noreferrer" target="_blank">Order Secret Cipher of the UFOnauts</a></p>
 			</Grid>
 			<Grid item xs={6} sm={3}>
-				<p><a css={linkStyles} href="https://codexastarte.wordpress.com/" rel="noreferrer" target="_blank">Codex Astarte</a></p>
+				<p><a css={linkStyles} href="https://codexastarte.substack.com/" rel="noreferrer" target="_blank">Codex Astarte</a></p>
 			</Grid>
 			<Grid item xs={6} sm={3}>
 				<p><a css={linkStyles} href="https://github.com/TheeBryanWhite/ufonautcipher" rel="noreferrer" target="_blank">Github Repository</a></p>
