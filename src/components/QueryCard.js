@@ -29,6 +29,7 @@ import {
 	liberTextBreakdown,
 	queryEncode
 } from '../utilities';
+import { v4 as uuidv4 } from 'uuid';
 
 const ResultsPane = lazy(() => import('./ResultsPane'));
 const renderLoader = () => <p>Loading</p>;
