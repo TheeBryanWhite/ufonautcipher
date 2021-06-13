@@ -15,13 +15,16 @@ export function spellCheck(input) {
 		const key = env.BINGKEY;
 		const queryString = `?text=${input}`;
 
+		// Call up our search app endpoint
 		axios.get(host + queryString, {
 			headers : {
 				'Ocp-Apim-Subscription-Key': key
 			}
 		})
 		.then(function (response) {
+			// If the response sends any suggestions...
 			if (response.data.flaggedTokens.length >= 1) {
+				// Send them to the store, we'll need them later
 				store.dispatch(setQuerySuggestions(response.data.flaggedTokens));
 			}
 		})
