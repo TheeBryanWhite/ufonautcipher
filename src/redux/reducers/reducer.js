@@ -9,6 +9,7 @@ const initialState = {
 	queryString: '',
 	queryVal: null,
 	showResults: false,
+	suggestions: [],
 	totalSum: 0
 }
 
@@ -48,6 +49,12 @@ const reducer = (state = initialState, action) => {
 			return { 
 				...state, 
 				queryString: action.payload
+			}
+
+		case types.SET_QUERY_SUGGESTIONS:
+			return { 
+				...state, 
+				suggestions: action.payload
 			}
 
 		case types.SET_QUERY_VAL:

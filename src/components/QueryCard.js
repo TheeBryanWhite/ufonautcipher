@@ -27,7 +27,8 @@ import InfoBar from './InfoBar';
 import {
 	deepLinking,
 	liberTextBreakdown,
-	queryEncode
+	queryEncode,
+	spellCheck
 } from '../utilities';
 
 const ResultsPane = lazy(() => import('./ResultsPane'));
@@ -42,6 +43,7 @@ class QueryCard extends Component {
 
 		this.buttonDisable = this.buttonDisable.bind(this);
 		this.changeHandler = this.changeHandler.bind(this);
+		this.checkSpelling = this.checkSpelling.bind(this);
 		this.clickHandler = this.clickHandler.bind(this);
 		this.debounceThis = debounce(this.debounceThis.bind(this), 500);
 		this.deepLinkInit = this.deepLinkInit.bind(this);
@@ -66,9 +68,14 @@ class QueryCard extends Component {
 		this.debounceThis();
 	}
 
+	checkSpelling = (query) => {
+		spellCheck(query);
+	}
+
 	// Functions to be run when the submit button is clicked
 	clickHandler = (event) => {
 		event.preventDefault();
+		this.checkSpelling(this.props.processedString);
 		this.props.setMatches(liberTextBreakdown(this.props.totalSum));
 		this.props.setResultsPaneState(true);
 	}

@@ -42,6 +42,13 @@ export const setQueryString = (data) => (dispatch) => {
 	})
 }
 
+export const setQuerySuggestions = (data) => (dispatch) => {
+	dispatch({
+		type: types.SET_QUERY_SUGGESTIONS,
+		payload: data,
+	})
+}
+
 export const setQueryVal = (data) => (dispatch) => {
 	dispatch({
 		type: types.SET_QUERY_VAL,

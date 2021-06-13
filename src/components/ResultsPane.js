@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import SocialSharing from './SocialSharing';
+import SuggestionsBar from './SuggestionsBar';
 
 const ResultsPane = (props) => {
 	return(
@@ -88,6 +89,7 @@ const ResultsPane = (props) => {
 						</div>
 					</div>
 				</Grid>
+				<SuggestionsBar />
 				<SocialSharing sharePath={props.sharePath} />
 				<Grid
 					css={css`
