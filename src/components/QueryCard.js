@@ -26,6 +26,7 @@ import debounce from 'lodash.debounce';
 import InfoBar from './InfoBar';
 import {
 	deepLinking,
+	determineSearchType,
 	liberTextBreakdown,
 	queryEncode,
 	spellCheck
@@ -48,6 +49,7 @@ class QueryCard extends Component {
 		this.debounceThis = debounce(this.debounceThis.bind(this), 500);
 		this.deepLinkInit = this.deepLinkInit.bind(this);
 		this.encodedStateUpdate = this.encodedStateUpdate.bind(this);
+		this.searchType = this.searchType.bind(this);
 		this.stripInvalidChars = this.stripInvalidChars.bind(this);
 		this.trimThis = this.trimThis.bind(this);
 	}
@@ -82,26 +84,61 @@ class QueryCard extends Component {
 
 	// Delay these a bit so we're not running them on every keystroke
 	debounceThis = () => {
-		const strippedString = this.stripInvalidChars(this.props.queryString);
-		const trimmedString = this.trimThis(strippedString);
-		const encodedQuery = queryEncode(trimmedString);
+		let encodedQuery;
+		const type = this.searchType(this.props.queryString);
+
+		if (type !== 'numeric') {
+			const strippedString = this.stripInvalidChars(this.props.queryString);
+			const trimmedString = this.trimThis(strippedString);
+			
+			encodedQuery = queryEncode(trimmedString);
+		} else {
+			encodedQuery = this.trimThis(this.props.queryString);
+		}
+
 		this.encodedStateUpdate(encodedQuery);
 		this.buttonDisable();
 	}
 
 	deepLinkInit = (query) => {
-		this.props.setQueryString(query);
-		const encodedQuery = queryEncode(query);
-		this.encodedStateUpdate(encodedQuery);
+		this.props.setQueryString(query)
+			.then(() => {
+				let encodedQuery;
+				const type = this.searchType(query);
+
+				if (type !== 'numeric') {
+					encodedQuery = queryEncode(query);
+				} else {
+					encodedQuery = query;
+				}
+
+				this.encodedStateUpdate(encodedQuery);
+			});
 	}
 
-	encodedStateUpdate = (object) => {
-		const matches = liberTextBreakdown(object.totalSum);
-		this.props.setCipherVal(object.cipherVals);
-		this.props.setMatches(matches);
-		this.props.setProcessedString(object.processedString);
-		this.props.setQueryVal(object.queryVal);
-		this.props.setTotalSum(object.totalSum);
+	encodedStateUpdate = (input) => {
+		const type = this.searchType(this.props.queryString);
+
+		if (type !== 'numeric') {
+			const matches = liberTextBreakdown(input.totalSum);
+			this.props.setCipherVal(input.cipherVals);
+			this.props.setMatches(matches);
+			this.props.setProcessedString(input.processedString);
+			this.props.setQueryVal(input.queryVal);
+			this.props.setTotalSum(input.totalSum);
+		} else {
+			const arr = [parseInt(input)];
+			const matches = liberTextBreakdown(arr);
+			this.props.setCipherVal(arr);
+			this.props.setMatches(matches);
+			this.props.setProcessedString(arr);
+			this.props.setQueryVal(arr);
+			this.props.setTotalSum(arr);
+		}
+	}
+
+	searchType = (query) => {
+		return determineSearchType(query);
 	}
 
 	// Only allow alphas and spaces

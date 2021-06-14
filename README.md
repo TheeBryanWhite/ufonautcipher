@@ -7,5 +7,5 @@ Powered by React.js, this is an application that automates the ALW cipher found 
 
 Roadmap:
 
-1. Reverse lookup, search by number
-2. Stored queries w/ Mongo DB
+1. Stored queries w/ Mongo DB
+2. React Native mobile app

@@ -15,12 +15,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case types.IS_NUMERIC_SEARCH:
-			return { 
-				...state, 
-				isNumericSearch: action.payload
-			}
-
 		case types.SET_BUTTON_STATE:
 			return { 
 				...state, 
