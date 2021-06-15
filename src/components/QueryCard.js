@@ -5,6 +5,7 @@ import {
 	lazy, 
 	Suspense 
 } from 'react';
+import axios from 'axios';
 import { css, jsx } from '@emotion/react';
 import { withRouter } from "react-router";
 import { connect } from 'react-redux'
@@ -16,7 +17,8 @@ import {
 	setQueryVal,
 	setProcessedString,
 	setResultsPaneState,
-	setTotalSum
+	setTotalSum,
+	setUserMatches
 } from '../redux/actions'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -46,9 +48,11 @@ class QueryCard extends Component {
 		this.changeHandler = this.changeHandler.bind(this);
 		this.checkSpelling = this.checkSpelling.bind(this);
 		this.clickHandler = this.clickHandler.bind(this);
+		this.createWord = this.createWord.bind(this);
 		this.debounceThis = debounce(this.debounceThis.bind(this), 500);
 		this.deepLinkInit = this.deepLinkInit.bind(this);
 		this.encodedStateUpdate = this.encodedStateUpdate.bind(this);
+		this.fetchWords = this.fetchWords.bind(this);
 		this.searchType = this.searchType.bind(this);
 		this.stripInvalidChars = this.stripInvalidChars.bind(this);
 		this.trimThis = this.trimThis.bind(this);
@@ -80,6 +84,30 @@ class QueryCard extends Component {
 		this.checkSpelling(this.props.processedString);
 		this.props.setMatches(liberTextBreakdown(this.props.totalSum));
 		this.props.setResultsPaneState(true);
+		this.createWord();
+	}
+
+	createWord = () => {
+		const type = this.searchType(this.props.queryString);
+		const createUrl = `http://localhost:3001/v1/words/`;
+		const self = this;
+		if (type !== 'numeric') {
+			if (self.props.suggestions.length === 0) {
+				axios.post(createUrl, {
+					cipherVal: self.props.cipherVal,
+					processedString: self.props.processedString,
+					queryString: self.props.queryString,
+					queryVal: self.props.queryVal,
+					totalSum: self.props.totalSum
+				})
+				.then(function (response) {
+					console.log('Word added to lexicanum');
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			}
+		}
 	}
 
 	// Delay these a bit so we're not running them on every keystroke
@@ -97,6 +125,7 @@ class QueryCard extends Component {
 		}
 
 		this.encodedStateUpdate(encodedQuery);
+		this.fetchWords(this.props.cipherVal);
 		this.buttonDisable();
 	}
 
@@ -137,6 +166,18 @@ class QueryCard extends Component {
 		}
 	}
 
+	fetchWords = () => {
+		const fetchUrl = `http://localhost:3001/v1/words/${this.props.cipherVal}`;
+		const self = this;
+		axios.get(fetchUrl, {})
+		.then(function (response) {
+			self.props.setUserMatches(response.data);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	}
+
 	searchType = (query) => {
 		return determineSearchType(query);
 	}
@@ -175,6 +216,7 @@ class QueryCard extends Component {
 								queryData={this.props.queryString}
 								sharePath={this.props.processedString}
 								totalSumData={this.props.totalSum}
+								userMatchData={this.props.userMatches}
 							/>
 						</Grid>
 					</Suspense>
@@ -249,7 +291,9 @@ const mapStateToProps = state => ({
 	queryString: state.app.queryString,
 	queryVal: state.app.queryVal,
 	showResults: state.app.showResults,
-	totalSum: state.app.totalSum
+	suggestions: state.app.suggestions,
+	totalSum: state.app.totalSum,
+	userMatches: state.app.userMatches
 });
 
 export default connect(
@@ -262,6 +306,7 @@ export default connect(
 		setQueryString,
 		setQueryVal,
 		setResultsPaneState,
-		setTotalSum
+		setTotalSum,
+		setUserMatches
 	}
 )(withRouter(QueryCard));

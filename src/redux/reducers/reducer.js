@@ -10,7 +10,8 @@ const initialState = {
 	queryVal: null,
 	showResults: false,
 	suggestions: [],
-	totalSum: 0
+	totalSum: 0,
+	userMatches: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -67,6 +68,12 @@ const reducer = (state = initialState, action) => {
 			return { 
 				...state, 
 				totalSum: action.payload
+			}
+
+		case types.SET_USER_MATCHES:
+			return { 
+				...state, 
+				userMatches: action.payload
 			}
 
 		default:

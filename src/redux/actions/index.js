@@ -63,3 +63,10 @@ export const setTotalSum = (data) => (dispatch) => {
 		payload: data,
 	});
 }
+
+export const setUserMatches = (data) => (dispatch) => {
+	dispatch({
+		type: types.SET_USER_MATCHES,
+		payload: data,
+	});
+}
